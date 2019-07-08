@@ -1,0 +1,5 @@
+rootProject.name = 'GlobalNavalBattle'
+
+include 'common'
+include 'client'
+include 'server'

@@ -1,0 +1,33 @@
+apply plugin: 'application'
+
+mainClassName = "mjaroslav.games.globalnavalbattle.client.MainClient"
+
+jar {
+    manifest.attributes "Main-Class": mainClassName
+}
+
+switch (org.gradle.internal.os.OperatingSystem.current()) {
+    case org.gradle.internal.os.OperatingSystem.LINUX:
+        project.ext.lwjglNatives = "natives-linux"
+        break
+    case org.gradle.internal.os.OperatingSystem.WINDOWS:
+        project.ext.lwjglNatives = "natives-windows"
+        break
+}
+
+dependencies {
+    compile project(":common")
+    compile "org.l33tlabs.twl:pngdecoder:1.0"
+    implementation "org.lwjgl:lwjgl:$rootProject.config.lwjglVersion"
+    implementation "org.lwjgl:lwjgl-assimp:$rootProject.config.lwjglVersion"
+    implementation "org.lwjgl:lwjgl-glfw:$rootProject.config.lwjglVersion"
+    implementation "org.lwjgl:lwjgl-openal:$rootProject.config.lwjglVersion"
+    implementation "org.lwjgl:lwjgl-opengl:$rootProject.config.lwjglVersion"
+    implementation "org.lwjgl:lwjgl-stb:$rootProject.config.lwjglVersion"
+    runtimeOnly "org.lwjgl:lwjgl:$rootProject.config.lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-assimp:$rootProject.config.lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw:$rootProject.config.lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-openal:$rootProject.config.lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl:$rootProject.config.lwjglVersion:$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb:$rootProject.config.lwjglVersion:$lwjglNatives"
+}

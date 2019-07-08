@@ -1,0 +1,6 @@
+# Other #
+.idea/
+.gradle/
+build/
+classes/
+out/

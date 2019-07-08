@@ -1,0 +1,30 @@
+ext.configFile = "build.properties"
+ext.config = parseConfig(file(project.configFile))
+
+subprojects {
+    apply plugin: 'java'
+    
+    archivesBaseName = "globalnavalbattle-${project.name}"
+    version = "${rootProject.config.version}-${rootProject.config.type}"
+    
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+static def parseConfig(File config) {
+    if (config.exists())
+        config.withReader {
+            def prop = new Properties()
+            prop.load(it)
+            return (new ConfigSlurper().parse(prop))
+        }
+    else return null
+}

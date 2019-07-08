@@ -1,0 +1,11 @@
+apply plugin: 'application'
+
+mainClassName = "mjaroslav.games.globalnavalbattle.server.MainServer"
+
+jar {
+    manifest.attributes "Main-Class": mainClassName
+}
+
+dependencies {
+    compile project(":common")
+}
