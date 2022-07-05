@@ -1,0 +1,20 @@
+apply plugin: 'application'
+
+def buildprop = new Properties()
+file("build.properties").withInputStream { buildprop.load(it) }
+
+group = buildprop.group
+archivesBaseName = buildprop.name
+version = buildprop.version
+
+application {
+    mainClass = buildprop.group + ".Main"
+}
+
+File runningDir = project.projectDir.toPath().resolve(buildprop.run_dir).toFile()
+runningDir.mkdirs()
+tasks.run.workingDir = runningDir
+
+dependencies {
+    implementation project(":common")
+}

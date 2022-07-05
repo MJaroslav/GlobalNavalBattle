@@ -1,0 +1,23 @@
+def buildprop = new Properties()
+file("build.properties").withInputStream { buildprop.load(it) }
+
+subprojects {
+    apply plugin: 'java'
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '11'
+
+    dependencies {
+        implementation "org.jetbrains:annotations:${buildprop.jetbrains_annotations_version}"
+
+        compileOnly "org.projectlombok:lombok:${buildprop.lombok_version}"
+        annotationProcessor "org.projectlombok:lombok:${buildprop.lombok_version}"
+
+        testCompileOnly "org.projectlombok:lombok:${buildprop.lombok_version}"
+        testAnnotationProcessor "org.projectlombok:lombok:${buildprop.lombok_version}"
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}

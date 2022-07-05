@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+def buildprop = new Properties()
+file("build.properties").withInputStream { buildprop.load(it) }
+
+group = buildprop.group
+archivesBaseName = buildprop.name
+version = buildprop.version
+
+dependencies {
+    api "io.netty:netty-all:${buildprop.netty_version}"
+    api "com.google.code.gson:gson:${buildprop.gson_version}"
+    api "org.apache.logging.log4j:log4j-slf4j-impl:${buildprop.log4j_slf4j_version}"
+    api "org.apache.logging.log4j:log4j-api:${buildprop.log4j_api_version}"
+    api "org.apache.logging.log4j:log4j-core:${buildprop.log4j_core_version}"
+}
